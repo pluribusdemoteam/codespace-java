@@ -37,10 +37,13 @@ jobs:
         with:
           files: "NONCOMPLIANT.txt"
           
-      - name: File exists
+      - name: Non compliant file exists
         if: steps.check_non_compliant.outputs.files_exists == 'true'
-        # Only runs if all of the files exists
-        run: echo Compliant ***** !
+        # Only runs if non compliant
+        uses: actions/github-script@v3
+        with:
+          script: |
+            core.setFailed('Failed compliance')
         
 
         
