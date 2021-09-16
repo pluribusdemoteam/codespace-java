@@ -3,9 +3,9 @@ name: Run compliance on insecure branch
 on:
   # Triggers the workflow on push or pull request events but only for the insecure branch
   push:
-    branches: [ insecure ]
+    branches: [ main, insecure ]
   pull_request:
-    branches: [ insecure ]
+    branches: [ main, insecure ]
 
 jobs:
   build:
