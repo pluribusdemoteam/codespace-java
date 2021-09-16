@@ -14,6 +14,13 @@ jobs:
     steps:
        # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+            
+      - name: Check compliance
+        if: ${{ 1 < 10 }}
+        uses: actions/github-script@v3
+        with:
+          script: |
+            core.setFailed('Failed compliance')
 
       # Runs a shell script using the runners shell
       - name: Run a shell script
