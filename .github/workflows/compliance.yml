@@ -23,8 +23,7 @@ jobs:
           echo Set execute permission.
           chmod +x "${GITHUB_WORKSPACE}/scripts/artifactory_compliance.sh"
           echo Run script.
-          ./scripts/artifactory_compliance.sh >> $complianceStatus
-          echo '::set-output name=complianceStatus::$complianceStatus'
+          echo '::set-output name=complianceStatus::$(./scripts/artifactory_compliance.sh) '
           
       - name: Display compliance status
         run:  echo "The compliance status is ${{ steps.checkCompliance.outputs.complianceStatus }}"
