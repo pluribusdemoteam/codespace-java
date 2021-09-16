@@ -19,6 +19,7 @@ jobs:
           distribution: 'adopt'
       - name: Build with Maven
         run: mvn --batch-mode --update-snapshots verify --file demo/pom.xml
+      - run: mvn help:effective-settings
       - run: mvn help:effective-pom -Dverbose
       - run: mkdir staging && cp demo/target/*.jar staging
       - uses: actions/upload-artifact@v2
