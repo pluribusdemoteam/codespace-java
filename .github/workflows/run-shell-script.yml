@@ -17,6 +17,9 @@ jobs:
 
       # Runs a shell script using the runners shell
       - name: Run a shell script
-        run: ./scripts/artifactory_compliance.sh
+      - run: |
+           # make file runnable
+           chmod +x "${GITHUB_WORKSPACE}/scripts/artifactory_compliance.sh"
+           ./scripts/artifactory_compliance.sh
         
         
