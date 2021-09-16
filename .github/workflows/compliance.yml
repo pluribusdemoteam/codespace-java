@@ -15,15 +15,18 @@ jobs:
        # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
           
-      - name: Check compliance
-        id: checkCompliance
-        shell: pwsh  
+          
+      # Runs a shell script using the runners shell
+      - name: Run a shell script
         run: |
           echo Set execute permission.
           chmod +x "${GITHUB_WORKSPACE}/scripts/artifactory_compliance.sh"
+          echo Run script.
           $complianceStatus = $(./scripts/artifactory_compliance.sh)
           Write-Output "::set-output name=complianceStatus::$complianceStatus"
           echo Compliance status ${steps.checkCompliance.outputs.complianceStatus}
+          
+
         
       - name: Verify compliance status
         if: ${{ steps.checkCompliance.outputs.complianceStatus == 'ABCD' }}
