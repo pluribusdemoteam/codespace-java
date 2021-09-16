@@ -18,7 +18,9 @@ jobs:
       # Runs a shell script using the runners shell
       - name: Run a shell script
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+          echo Set execute permission.
+          chmod +x "${GITHUB_WORKSPACE}/scripts/artifactory_compliance.sh"
+          echo Run script.
+          ./scripts/artifactory_compliance.sh
         
         
