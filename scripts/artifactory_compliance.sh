@@ -36,8 +36,8 @@ do
 done < <(find $DIR -name "pom.xml")
 
 if [ $FAILS -eq 1 ]; then
-  echo -e "\nThis repo has files that are not in compliance";
+  echo -e "\nThis repo has files that are not in compliance.";
   exit 1;
 else
-  echo "This repo is in compliance"
+  echo "This repo is in compliance."
 fi
