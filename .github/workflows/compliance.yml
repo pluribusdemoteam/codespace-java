@@ -23,15 +23,24 @@ jobs:
           echo Set execute permission.
           chmod +x "${GITHUB_WORKSPACE}/scripts/artifactory_compliance.sh"
           echo Run script.
-          echo '::set-output name=complianceStatus::$(./scripts/artifactory_compliance.sh) '
+          ./scripts/artifactory_compliance.sh
           
-      - name: Display compliance status
-        run:  echo "The compliance status is ${{ steps.checkCompliance.outputs.complianceStatus }}"
-        
-      - name: Verify compliance status
-        if: ${{ steps.checkCompliance.outputs.complianceStatus == 'ABCD' }}
-        uses: actions/github-script@v3
+      - name: Check compliant file existence
+        id: check_compliant
+        uses: andstor/file-existence-action@v1
         with:
-          script: |
-            core.setFailed('Failed compliance')
+          files: "COMPLIANT.txt"
+          
+      - name: Check non compliant file existence
+        id: check_non_compliant
+        uses: andstor/file-existence-action@v1
+        with:
+          files: "NONCOMPLIANT.txt"
+          
+      - name: File exists
+        if: steps.check_non_compliant.outputs.files_exists == 'true'
+        # Only runs if all of the files exists
+        run: echo Compliant ***** !
+        
+
         
