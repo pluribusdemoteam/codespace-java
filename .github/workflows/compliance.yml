@@ -44,6 +44,10 @@ jobs:
         with:
           script: |
             core.setFailed('Failed compliance')
+            
+      - name: Display compliance if previous step succeeds
+        if: ${{ success() }}
+        run: echo "The compliance is ${{ steps.check_non_compliant.outputs.files_exists }}"
         
 
         
