@@ -38,7 +38,7 @@ jobs:
           files: "NONCOMPLIANT.txt"
           
       - name: Non compliant file exists
-        if: steps.check_non_compliant.outputs.files_exists == 'true'
+        if: steps.check_non_compliant.outputs.files_exists == 'false'
         # Only runs if non compliant
         uses: actions/github-script@v3
         with:
