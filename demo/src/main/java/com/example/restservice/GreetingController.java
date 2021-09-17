@@ -8,11 +8,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class GreetingController {
 
-	private static final String template = "Hello, Dear %s!";
+	private static final String template = "Hello, %s!";
+	private static final String SECRET_PASSWORD = "letMeIn!";
 	private final AtomicLong counter = new AtomicLong();
 
 	@GetMapping("/")
 	public Greeting greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
-		return new Greeting(counter.incrementAndGet(), String.format(template, name));
+		return new Greeting(counter.incrementAndGet(), String.format(template, name + SECRET_PASSWORD));
 	}
 }
