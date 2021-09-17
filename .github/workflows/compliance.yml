@@ -1,4 +1,4 @@
-name: Run compliance on insecure branch
+name: Run compliance on all branches
 # Controls when the workflow will run
 on: [push]
 
