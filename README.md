@@ -1,4 +1,8 @@
-# Instructions to create git hub codespace based off existing repo created for hello word java web app.
+[![Codacy Security Scan](https://github.com/pluribusdemoteam/codespace-java/actions/workflows/codacy-analysis.yml/badge.svg)](https://github.com/pluribusdemoteam/codespace-java/actions/workflows/codacy-analysis.yml)
+
+[![Maven workflow with compliance check (main)](https://github.com/pluribusdemoteam/codespace-java/actions/workflows/maven-workflow.yml/badge.svg)](https://github.com/pluribusdemoteam/codespace-java/actions/workflows/maven-workflow.yml)
+
+# Instructions to create git hub codespace based off existing repo created for hello word java web app
 
 * Open https://github.com/pluribusdemoteam/codespace-java/codespaces
 
