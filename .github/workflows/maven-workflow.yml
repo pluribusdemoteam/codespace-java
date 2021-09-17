@@ -42,11 +42,11 @@ jobs:
         uses: actions/github-script@v3
         with:
           script: |
-            core.setFailed('Failed compliance')
+            core.setFailed('Failed compliance: does not use approved package source')
             
       - name: Display compliance if previous step succeeds
         if: ${{ success() }}
-        run: echo "The compliance is ${{ steps.check_non_compliant.outputs.files_exists }}"
+        run: echo "The compliance status is ${{ steps.check_non_compliant.outputs.files_exists }}"
       
       
       - name: Set up JDK 11
