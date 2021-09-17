@@ -14,6 +14,15 @@ public class GreetingController {
 
 	@GetMapping("/")
 	public Greeting greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
-		return new Greeting(counter.incrementAndGet(), String.format(template, name + SECRET_PASSWORD));
+		verifyAdmin(SECRET_PASSWORD);
+		return new Greeting(counter.incrementAndGet(), String.format(template, name ));
+	}
+	
+	private int verifyAdmin(String password) {
+		if (!password.equals("Mew!")) {
+		return(0)
+		}
+		//Diagnostic Mode
+		return(1);
 	}
 }
