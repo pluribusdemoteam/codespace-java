@@ -9,7 +9,7 @@ FAILS=0
 
 EXT_RUBY="https://rubygems.org/"
 EXT_NODE="https://registry.npmjs.org/"
-EXT_MAVEN="http://repo1.maven.org/maven2"
+EXT_MAVEN="https://repo.maven.apache.org/maven2"
 
 ## Ruby Check
 while read -r file
