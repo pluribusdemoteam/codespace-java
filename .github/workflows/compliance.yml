@@ -1,11 +1,6 @@
 name: Run compliance on insecure branch
 # Controls when the workflow will run
-on:
-  # Triggers the workflow on push or pull request events but only for the insecure branch
-  push:
-    branches: [ main, insecure ]
-  pull_request:
-    branches: [ main, insecure ]
+on: [push]
 
 jobs:
   build:
@@ -38,7 +33,7 @@ jobs:
           files: "NONCOMPLIANT.txt"
           
       - name: Non compliant file exists
-        if: steps.check_non_compliant.outputs.files_exists == 'false'
+        if: steps.check_non_compliant.outputs.files_exists == 'true'
         # Only runs if non compliant
         uses: actions/github-script@v3
         with:
