@@ -2,7 +2,7 @@
 # This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
 # For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
 
-name: Java CI
+name: Maven workflow with compliance check
 
 on: [push]
 
@@ -11,13 +11,52 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+      
+      # Runs a shell script using the runners shell
+      - name: Run a shell script
+        id: run-shell-script
+        run: |
+          echo Set execute permission.
+          chmod +x "${GITHUB_WORKSPACE}/scripts/artifactory_compliance.sh"
+          echo Run script.
+          ./scripts/artifactory_compliance.sh
+          
+      - name: Check compliant file existence
+        id: check_compliant
+        uses: andstor/file-existence-action@v1
+        with:
+          files: "COMPLIANT.txt"
+          
+      - name: Check non compliant file existence
+        id: check_non_compliant
+        uses: andstor/file-existence-action@v1
+        with:
+          files: "NONCOMPLIANT.txt"
+          
+      - name: Non compliant file exists
+        if: steps.check_non_compliant.outputs.files_exists == 'true'
+        # Only runs if non compliant
+        uses: actions/github-script@v3
+        with:
+          script: |
+            core.setFailed('Failed compliance')
+            
+      - name: Display compliance if previous step succeeds
+        if: ${{ success() }}
+        run: echo "The compliance is ${{ steps.check_non_compliant.outputs.files_exists }}"
+      
+      
       - name: Set up JDK 11
+        if: ${{ success() }}
         uses: actions/setup-java@v2
         with:
           java-version: '11'
           distribution: 'adopt'
+          
       - name: Build with Maven
+        if: ${{ success() }}
         run: mvn --batch-mode --update-snapshots verify --file demo/pom.xml
       - run: mkdir staging && cp demo/target/*.jar staging
       - uses: actions/upload-artifact@v2
